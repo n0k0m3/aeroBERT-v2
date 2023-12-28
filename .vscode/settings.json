@@ -1,5 +1,7 @@
 {
     "conventionalCommits.scopes": [
-        "data"
+        "data",
+        "main",
+        "train"
     ]
 }
