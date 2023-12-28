@@ -663,7 +663,10 @@ def main():
             result = metric.compute(predictions=preds, references=p.label_ids, average="micro")
         else:
             preds = np.argmax(preds, axis=1)
-            result = metric.compute(predictions=preds, references=p.label_ids)
+            if data_args.metric_name == "f1":
+                result = metric.compute(predictions=preds, references=p.label_ids, average="weighted")
+            elif data_args.metric_name == "accuracy":
+                result = metric.compute(predictions=preds, references=p.label_ids)
         if len(result) > 1:
             result["combined_score"] = np.mean(list(result.values())).item()
         return result
