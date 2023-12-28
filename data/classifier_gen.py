@@ -2,8 +2,8 @@ import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 
-# download archanatikayatray/aeroBERT-NER huggingface dataset
-# https://huggingface.co/datasets/archanatikayatray/aeroBERT-NER
+# download archanatikayatray/aeroBERT-classification huggingface dataset
+# https://huggingface.co/datasets/archanatikayatray/aeroBERT-classification
 import pandas as pd
 from datasets import load_dataset, Dataset
 
