@@ -612,6 +612,9 @@ def main():
         pad_to_multiple_of=8 if pad_to_multiple_of_8 else None,
     )
 
+    # Early stopping callback
+    early_stopping_callback = transformers.EarlyStoppingCallback(early_stopping_patience=3)
+
     # Initialize our Trainer
     trainer = Trainer(
         model=model,
@@ -624,6 +627,7 @@ def main():
         preprocess_logits_for_metrics=preprocess_logits_for_metrics
         if training_args.do_eval and not is_torch_tpu_available()
         else None,
+        callbacks=[early_stopping_callback],
     )
 
     # Training
