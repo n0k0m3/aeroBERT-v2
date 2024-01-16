@@ -22,6 +22,8 @@
 #SBATCH --ntasks-per-node=1
 # Configure the number of GPUs
 #SBATCH --gpus-per-node=4
+#SBATCH --exclusive
+#SBATCH --mem=0
 
 # (optional) list all gpus (check GPU available)
 # nvidia-smi
@@ -32,6 +34,12 @@ echo `date`
 . ./env.sh
 
 start=`date +%s`
+
+export NCCL_DEBUG=INFO
+export NCCL_DEBUG=WARN
+export NCCL_IB_DISABLE=1
+export NCCL_P2P_DISABLE=1
+export CUDA_LAUNCH_BLOCKING=1
 
 ##################################
 ########## Pretraining ###########
