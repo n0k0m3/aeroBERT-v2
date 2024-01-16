@@ -72,6 +72,7 @@ export CUDA_LAUNCH_BLOCKING=1
 # CUDA_VISIBLE_DEVICES=2 ./pretrain.sh microsoft/deberta-v3-base data/pretrain/train.txt data/pretrain/test.txt 16 > stdlog/log_deberta-v3-base.txt 2>&1 &
 # P3=$!
 # CUDA_VISIBLE_DEVICES=3 ./pretrain.sh microsoft/deberta-v3-large data/pretrain/train.txt data/pretrain/test.txt 8 > stdlog/log_deberta-v3-large.txt 2>&1 &
+# P4=$!
 # wait $P1 $P2 $P3 $P4
 
 # CUDA_VISIBLE_DEVICES=0 ./pretrain.sh albert-xlarge-v2 data/pretrain/train.txt data/pretrain/test.txt 8 > stdlog/log_albert-xlarge-v2.txt 2>&1 &
@@ -81,11 +82,14 @@ export CUDA_LAUNCH_BLOCKING=1
 # CUDA_VISIBLE_DEVICES=2 ./pretrain.sh microsoft/deberta-v3-base data/pretrain/train.txt data/pretrain/test.txt 8 > stdlog/log_deberta-v3-base.txt 2>&1 &
 # P3=$!
 # CUDA_VISIBLE_DEVICES=3 ./pretrain.sh microsoft/deberta-v3-large data/pretrain/train.txt data/pretrain/test.txt 4 > stdlog/log_deberta-v3-large.txt 2>&1 &
+# P4=$!
 # wait $P1 $P2 $P3 $P4
 
 # CUDA_VISIBLE_DEVICES=0 ./pretrain.sh bert-large-uncased data/pretrain/train.txt data/pretrain/test.txt 8 > stdlog/log_bert-large-uncased.txt 2>&1 &
 # P1=$!
 # wait $P1
+
+# CUDA_VISIBLE_DEVICES=0 ./pretrain_base.sh output/aeroBERTv2-microsoft/deberta-v3-large data/pretrain/train.txt data/pretrain/test.txt 4
 
 ##################################
 ######### Fine-tuning NER ########
@@ -118,11 +122,10 @@ export CUDA_LAUNCH_BLOCKING=1
 # P1=$!
 # CUDA_VISIBLE_DEVICES=1 ./ner.sh roberta-large data/ner/train.json data/ner/test.json 8 > stdlog/log_ner_roberta-large.txt 2>&1 &
 # P2=$!
-# CUDA_VISIBLE_DEVICES=2 ./ner.sh microsoft/deberta-v3-base data/ner/train.json data/ner/test.json 8 > stdlog/log_ner_deberta-v3-base.txt 2>&1 &
-# P3=$!
-# CUDA_VISIBLE_DEVICES=3 ./ner.sh microsoft/deberta-v3-large data/ner/train.json data/ner/test.json 4 > stdlog/log_ner_deberta-v3-large.txt 2>&1 &
-# P4=$!
-# wait $P1 $P2 $P3 $P4
+# CUDA_VISIBLE_DEVICES=0 ./ner.sh microsoft/deberta-v3-base data/ner/train.json data/ner/test.json 8 > stdlog/log_ner_deberta-v3-base.txt 2>&1 &
+# P1=$!
+# CUDA_VISIBLE_DEVICES=1 ./ner.sh microsoft/deberta-v3-large data/ner/train.json data/ner/test.json 4 > stdlog/log_ner_deberta-v3-large.txt 2>&1 &
+# P2=$!
 #end not running
 
 ##################################
@@ -150,10 +153,10 @@ export CUDA_LAUNCH_BLOCKING=1
 # wait $P1 $P2 $P3 $P4
 
 #not running
-# CUDA_VISIBLE_DEVICES=0 ./classifier.sh albert-xlarge-v2 data/classifier/train.json data/classifier/test.json 8 > stdlog/log_classifier_albert-xlarge-v2.txt 2>&1 &
-# P1=$!
-# CUDA_VISIBLE_DEVICES=1 ./classifier.sh roberta-large data/classifier/train.json data/classifier/test.json 8 > stdlog/log_classifier_roberta-large.txt 2>&1 &
-# P2=$!
+# CUDA_VISIBLE_DEVICES=2 ./classifier.sh albert-xlarge-v2 data/classifier/train.json data/classifier/test.json 8 > stdlog/log_classifier_albert-xlarge-v2.txt 2>&1 &
+# P3=$!
+# CUDA_VISIBLE_DEVICES=3 ./classifier.sh roberta-large data/classifier/train.json data/classifier/test.json 8 > stdlog/log_classifier_roberta-large.txt 2>&1 &
+# P4=$!
 # CUDA_VISIBLE_DEVICES=2 ./classifier.sh microsoft/deberta-v3-base data/classifier/train.json data/classifier/test.json 8 > stdlog/log_classifier_deberta-v3-base.txt 2>&1 &
 # P3=$!
 # CUDA_VISIBLE_DEVICES=3 ./classifier.sh microsoft/deberta-v3-large data/classifier/train.json data/classifier/test.json 4 > stdlog/log_classifier_deberta-v3-large.txt 2>&1 &
@@ -162,8 +165,18 @@ export CUDA_LAUNCH_BLOCKING=1
 #end not running
 
 ##################################
-###### Fine-tuning Baseline ######
+###########  Baseline ############
 ##################################
+
+# CUDA_VISIBLE_DEVICES=0 ./pretrain_base.sh bert-base-uncased data/pretrain/train.txt data/pretrain/test.txt 32 > stdlog/log_base_bert-base-uncased.txt 2>&1 &
+# P1=$!
+# CUDA_VISIBLE_DEVICES=1 ./pretrain_base.sh bert-base-cased data/pretrain/train.txt data/pretrain/test.txt 32 > stdlog/log_base_bert-base-cased.txt 2>&1 &
+# P2=$!
+# CUDA_VISIBLE_DEVICES=2 ./pretrain_base.sh bert-large-uncased data/pretrain/train.txt data/pretrain/test.txt 16 > stdlog/log_base_bert-large-uncased.txt 2>&1 &
+# P3=$!
+# CUDA_VISIBLE_DEVICES=3 ./pretrain_base.sh bert-large-cased data/pretrain/train.txt data/pretrain/test.txt 16 > stdlog/log_base_bert-large-cased.txt 2>&1 &
+# P4=$!
+# wait $P1 $P2 $P3 $P4
 
 # CUDA_VISIBLE_DEVICES=0 ./classifier_base.sh bert-base-cased data/classifier/train.json data/classifier/test.json 32 > stdlog/log_classifier_base_bert-base-cased.txt 2>&1 &
 # P1=$!
