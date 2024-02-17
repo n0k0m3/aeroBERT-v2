@@ -680,6 +680,9 @@ def main():
     else:
         data_collator = None
 
+    # Set learning rate similar to original paper
+    training_args.learning_rate = 2e-5
+
     # Initialize our Trainer
     trainer = Trainer(
         model=model,
