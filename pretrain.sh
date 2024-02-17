@@ -7,8 +7,9 @@ MODEL_NAME=$1
 TRAIN_DATA=$2
 TEST_DATA=$3
 BATCH_SIZE=$4
+N_PROC=$5
 
-torchrun --nproc_per_node 4 run_mlm.py \
+torchrun --nproc_per_node ${N_PROC:=4} run_mlm.py \
     --output_dir=output/aeroBERTv2-$MODEL_NAME \
     --model_name_or_path=$MODEL_NAME \
     --do_train \
